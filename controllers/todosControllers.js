@@ -18,7 +18,17 @@ const deleteTodo = async (req, res) => {
   res.status(200).json(result);
 };
 
+const addTodo = async (req, res) => {
+  console.log("🚀 ~ addTodo ~ req:", req.body)
+  if (!Object.keys(req.body)) throw httpError(404, "Body is empty")
+  
+  const result = await Todos.create(req.body)
+
+  res.status(201).json(result)
+}
+
 module.exports = {
   getAllTodos: controllerWrapper(getAllTodos),
+  addTodo: controllerWrapper(addTodo),
   geleteTodos: controllerWrapper(deleteTodo),
 };

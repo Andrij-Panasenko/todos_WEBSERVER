@@ -8,7 +8,15 @@ const getAllTodos = async (_, res) => {
   res.status(200).json(result);
 };
 
-const deleteTodo = async (req, res) => {};
+const deleteTodo = async (req, res) => {
+  const { id } = req.params;
+  console.log("🚀 ~ deleteTodo ~ id:", id)
+
+  const result = await Todos.findOneAndDelete(id);
+  if (!result) throw httpError(404);
+
+  res.status(200).json(result);
+};
 
 module.exports = {
   getAllTodos: controllerWrapper(getAllTodos),
